@@ -34,8 +34,8 @@
             background-color:chocolate;
             cursor: pointer;
         }
-        .submit-input{
-            background-color:brown;
+        .input-error{
+            border-color:brown;
         }
     </style> 
 </head>
@@ -43,43 +43,38 @@
  <div class="container">
  <h1>registration form</h1>   
     <form> 
-        <div class="form-input">
+        <div class="form-input" id="name-input-container">
             <label for="name-input">type your name</label>
-            <input type="text" id="name-input" placeholder="name"|>
+            <input id="name-input" type="text" placeholder="name"|>
+        </div>
+        <div class="form-input">
+            <label for="password-input">enter your password</label>
+            <input id="password-input" type="password" placeholder="password"|>
         </div>
     </form>
-
-    <div onclick="divClickHandler()">
-        <button id="submit-input" disabled>submit</button>
-        <button id="enable-submit" onclick="enableHandler()">enable</button>
-        <button id="add-listener" onclick="addListener()">add listener</button>
-        <button id="disable-submit" onclick="disableHandler()">disable</button>
-    </div>
+    
+    <button id="submit-input">submit</button>
+       
 </div> 
 <script type="text/javascript">
-        const button = document.querySelector("#submit-input");
+        const nameInput = document.querySelector("#name-input");
+        
+        let inputValue;
 
-        const itWorksListener = () => {
-            console.log("it works");
-        }
-
-        const divClickHandler = () => {
-            console.log("div clicked");
-        }
-
-        function enableHandler () {
-            button.disabled = false;
-        }
-
-        function addListener() {
-            button.addEventListener("click", itWorksListener);
-        }
-
-        function disableHandler () {
-            button.disabled = true;
-            button.removeEventListener("click", itWorksListener);
-        }
-
+        nameInput.addEventListener("input", ()=> {
+            inputValue = nameInput.value
+            console.log(inputValue)
+        })
+        nameInput.addEventListener("blur", ()=> {
+            if (!inputValue || inputValue.lenght < 4) {
+                nameInput.className = "input-error"
+                const p = document.createElement("p")
+                document.querySelector("#name-input-container").append("Name field is required", p);
+        
+            }
+        })
+       
+        
 
  </script>
 </body>
